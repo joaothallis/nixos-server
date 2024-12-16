@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -6,15 +6,6 @@
   ];
 
   services.tailscale.enable = true;
-
-  services.postgresql = {
-    enable = true;
-    ensureDatabases = [ "live_media" ];
-    authentication = pkgs.lib.mkOverride 10 ''
-      #type database  DBuser  auth-method
-      local all       all     trust
-    '';
-  };
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
