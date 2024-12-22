@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -6,6 +6,8 @@
   ];
 
   services.tailscale.enable = true;
+
+  environment.systemPackages = with pkgs; [ git ];
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
