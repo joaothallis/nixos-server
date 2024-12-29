@@ -7,7 +7,7 @@
 
   services.tailscale.enable = true;
 
-  environment.systemPackages = with pkgs; [ git ];
+  environment.systemPackages = with pkgs; [ git elixir ];
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
