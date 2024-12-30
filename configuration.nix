@@ -8,15 +8,25 @@
   services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [ git elixir ];
-
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
   networking.hostName = "nixos";
   networking.domain = "";
   services.openssh.enable = true;
-  users.users.root.openssh.authorizedKeys.keys = [
-    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIywXCJvuYxPSDXk/tNY+pTCyJW+bXbZtJ3YQH/jDNHp joao@Joaos-MacBook-Pro.local''
-    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPWkDdEXgI2cMb8LQIQFDpvrCUvNxKkTaL2h4FsOESdX jose.csilva@BRRIOMN045510.local''
-  ];
+  users.users = {
+    root.openssh.authorizedKeys.keys = [
+      ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIywXCJvuYxPSDXk/tNY+pTCyJW+bXbZtJ3YQH/jDNHp joao@Joaos-MacBook-Pro.local''
+      ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPWkDdEXgI2cMb8LQIQFDpvrCUvNxKkTaL2h4FsOESdX jose.csilva@BRRIOMN045510.local''
+    ];
+
+    github = {
+      isNormalUser = true;
+      description = "GitHub Deployment User";
+      home = "/home/github";
+      openssh.authorizedKeys.keys = [
+        ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIywXCJvuYxPSDXk/tNY+pTCyJW+bXbZtJ3YQH/jDNHp joao@Joaos-MacBook-Pro.local''
+      ];
+    };
+  };
   system.stateVersion = "23.11";
 }
