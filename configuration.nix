@@ -7,7 +7,21 @@
 
   services.tailscale.enable = true;
 
-  environment.systemPackages = with pkgs; [ git elixir ];
+  systemd.services.tailscale-funnel-node-exporter = {
+    description = "Tailscale Funnel live_media";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.tailscale}/bin/tailscale funnel 4000";
+      Restart = "on-failure";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    git
+    elixir
+  ];
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
   networking.hostName = "nixos";
